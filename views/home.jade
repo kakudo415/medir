@@ -1,0 +1,15 @@
+extends layout
+
+block head
+  link(rel="stylesheet", href="stylesheets/home.css")
+  script(src="javascripts/home.js")
+
+block content
+  div.main
+    div.search-box
+      h1.title Enter room name
+      div.input
+        form.form(action="/", method="post")
+          input.text-box(type="text", name="name")
+          input.submit(type="submit", value="Join!")
+      p.change → Create a new room
