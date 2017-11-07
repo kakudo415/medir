@@ -1,0 +1,14 @@
+extends layout
+
+block head
+  link(rel="stylesheet", href="../public/stylesheets/file-manager.css")
+  script(src="../public/javascripts/file-manager.js")
+
+block content
+  div#container
+    div#main
+      div#header
+        a(onclick="backDirectory();")
+          img(src="../public/img/back.svg", alt="Back")
+        span#address
+      div#items
