@@ -4,6 +4,7 @@
 }
 
 .search-box {
+  position: relative;
   width: 400px;
   height: 150px;
   margin: auto;
@@ -58,4 +59,10 @@
   cursor: pointer;
   color: rgba(0, 100, 255, 0.6);
   margin-top: 30px;
+}
+
+.massage {
+  color: red;
+  position: absolute;
+  bottom: 40px;
 }
