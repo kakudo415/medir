@@ -13,7 +13,7 @@ router.post("/", (req, res) => {
 
 router.post("/create", (req, res) => {
   Room.find(req.body.name).then((room) => {
-    if(room) res.redirect("/", {massage: "Already exist"});
+    if(room) res.render("/", {massage: "Already exist"});
     else {
       Room.create(req.body.name).then(() => {
         res.redirect(`/room/${req.body.name}`);
