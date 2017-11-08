@@ -1,6 +1,6 @@
 'use strict';
 let path = ["dir", "dir1", "dir4"];
-let currentDirectory;
+let currentData;
 let pathHTML;
 let itemsHTML;
 let data = {
@@ -39,9 +39,10 @@ function main() {
   showPath();
 }
 function showDirectory() {
+  currentData = data;
   recursive(0);
   function recursive(index) {
-    currentDirectory = data[path[index]];
+    currentData = currentData[path[index]];
     if ((path.length - 1) > index) {
       recursive(++index);
     }
