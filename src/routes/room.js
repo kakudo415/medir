@@ -3,8 +3,12 @@ const db = require("../db");
 const Room = require("../models/room");
 
 
-router.get("/", (req, res) => {
-  res.render("home");
+router.get("/:name", (req, res) => {
+  res.render("files");
+})
+
+router.post("/:name/dir/:id", (req, res) => {
+
 });
 
 module.exports = router;
