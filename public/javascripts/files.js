@@ -41,7 +41,7 @@ function main() {
 function showDirectory() {
   recursive(0);
   function recursive(index) {
-    currentDirectory = data.path[index];
+    currentDirectory = data[path[index]];
     if ((path.length - 1) > index) {
       recursive(++index);
     }
@@ -50,7 +50,7 @@ function showDirectory() {
 function showPath() {
   let pathString = "";
   if (path.length < 1) {
-    pathHTML.innerText = "/";
+    pathString = "/";
   }
   for (let i in path) {
     pathString += " / " + path[i];
