@@ -55,7 +55,7 @@ function showDirectory() {
   }
   let source = "";  
   for (let i in currentData) {
-    
+    // ここで直下の要素についての処理
   }
   itemsHTML.innerHTML = source;
 }
