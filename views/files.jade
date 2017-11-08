@@ -1,0 +1,15 @@
+extends layout
+
+block head
+  link(rel="stylesheet", href="../public/stylesheets/files.css")
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  script(src="javascripts/files.js")
+
+block content
+  div#container
+    div#main
+      div#header
+        a(onclick="backDirectory();")
+          img(src="/img/back.svg", alt="Back")
+        span#address
+      div#items
