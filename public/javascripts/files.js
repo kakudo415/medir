@@ -1,5 +1,6 @@
 'use strict';
 let path = ["dir", "dir1", "dir4"];
+let alreadyHave = [0];
 let currentData;
 let pathHTML;
 let itemsHTML;
@@ -43,10 +44,20 @@ function showDirectory() {
   recursive(0);
   function recursive(index) {
     currentData = currentData[path[index]];
+    if (alreadyHave.indexOf(currentData.id) == -1) {
+      $.post(location.href + "/dir/" + path[index], , (data) => {
+
+      });
+    }
     if ((path.length - 1) > index) {
       recursive(++index);
     }
   }
+  let source = "";  
+  for (let i in currentData) {
+    
+  }
+  itemsHTML.innerHTML = source;
 }
 function showPath() {
   let pathString = "";
