@@ -13,3 +13,12 @@ block content
           img(src="/img/back.svg", alt="Back")
         span#path
       div#items
+      div#memo
+        div#memo-header
+          div#memo-title
+          div#memo-control
+            a#save(onclick="saveMemo();")
+              img(src="/img/save.svg", alt="Save")
+            a#clear(onclick="hideMemo();")
+              img(src="/img/clear.svg", alt="Back")
+        textarea#memo-contents

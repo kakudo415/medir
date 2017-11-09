@@ -28,6 +28,7 @@ img{
     background: #FFFFFF;
     border: 1px solid rgba(0, 0, 0, 0.2);
     border-radius: 5px;
+    position: relative;
   }
     #header{
       height: 40px;
@@ -67,4 +68,52 @@ img{
         padding: 32px 0;
         color: rgba(0, 0, 0, 0.54);
         text-align: center;
+      }
+    #memo{
+      min-height: 100%;
+      width: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 3;
+      padding: 8px;
+      background: #FFFFFF;
+      border-radius: 5px;
+      box-shadow: 0 0 4px 2px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      display: none;
+    }
+      #memo-header{
+        height: 40px;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: rgba(0, 0, 0, 0.54);
+        font-weight: bold;
+      }
+        #memo-control{
+          width: 80px;
+          display: flex;
+          justify-content: space-between;
+        }
+          #save{
+            background: #2196F3;
+            border-radius: 5px;
+            overflow: hidden;
+          }
+          #save:hover{
+            background: #1976D2;
+          }
+          #clear{
+            background: #F44336;
+            border-radius: 5px;
+            overflow: hidden;
+          }
+          #clear:hover{
+            background: #D32F2F;
+          }
+      #memo-contents{
+        margin: 8px 0 0;
+        color: rgba(0, 0, 0, 0.87);
       }

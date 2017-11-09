@@ -1,9 +1,13 @@
 'use strict';
-let path = ["dir"];
+let path = [];
 let alreadyHave = [0];
 let currentData;
+let currentMemo;
 let pathHTML;
 let itemsHTML;
+let memoHTML;
+let memoTitle;
+let memoContents;
 let data = {
   dir: {
     dir1: {
@@ -37,6 +41,9 @@ window.onload = main;
 function main() {
   pathHTML = document.getElementById("path");
   itemsHTML = document.getElementById("items");
+  memoHTML = document.getElementById("memo");
+  memoTitle = document.getElementById("memo-title");
+  memoContents = document.getElementById("memo-contents");
   showDirectory();
   showPath();
 }
@@ -85,7 +92,15 @@ function showPath() {
   pathHTML.innerText = pathString;
 }
 function showMemo(name) {
-  console.log("Memo is " + name);
+  memoTitle.innerText = name;
+  memoHTML.style.display = "block";
+  currentMemo = name;
+}
+function hideMemo(){
+  memoHTML.style.display = "none";
+}
+function saveMemo(){
+  currentMemo;
 }
 function changeDirectory(name) {
   path.push(name);
