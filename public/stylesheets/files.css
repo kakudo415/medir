@@ -49,12 +49,16 @@ img{
       }
     #items{
       margin: 8px 0 0;
+      border-radius: 5px;
+      overflow: hidden;
     }
       #items > a{
         height: 32px;
         padding: 0 4px;
         line-height: 32px;
-        border-radius: 5px;
+      }
+      #items > a:not(:last-child){
+        border-bottom: 1px solid rgba(0, 0, 0, 0.12);
       }
       #items > a:hover{
         background: rgba(53, 149, 102, 0.1);

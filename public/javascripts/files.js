@@ -1,5 +1,5 @@
 'use strict';
-let path = ["dir", "dir1", "dir4"];
+let path = ["dir"];
 let alreadyHave = [0];
 let currentData;
 let pathHTML;
@@ -45,17 +45,22 @@ function showDirectory() {
   function recursive(index) {
     currentData = currentData[path[index]];
     if (alreadyHave.indexOf(currentData.id) == -1) {
-      $.post(location.href + "/dir/" + path[index], , (data) => {
-
+      $.post(location.href + "/dir/" + path[index], {}, (res) => {
+        console.log(res);
       });
     }
     if ((path.length - 1) > index) {
       recursive(++index);
     }
   }
-  let source = "";  
+  let source = "";
+  if (Object.keys(currentData).length < 2) {
+    source = "<div id='nocontents'>No Contents</div>";
+  }
   for (let i in currentData) {
-    // ここで直下の要素についての処理
+    if (i != "id") {
+      source += "<a onclick=changeDirectory(" + "'" + i + "'" + ");>" + i + "</a>";
+    }
   }
   itemsHTML.innerHTML = source;
 }
@@ -68,6 +73,11 @@ function showPath() {
     pathString += " / " + path[i];
   }
   pathHTML.innerText = pathString;
+}
+function changeDirectory(name) {
+  path.push(name);
+  showDirectory();
+  showPath();
 }
 function backDirectory() {
   if (path.length > 0) {
