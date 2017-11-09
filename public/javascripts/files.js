@@ -100,7 +100,7 @@ function hideMemo(){
   memoHTML.style.display = "none";
 }
 function saveMemo(){
-  currentMemo;
+  
 }
 function changeDirectory(name) {
   path.push(name);
