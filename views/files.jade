@@ -2,7 +2,7 @@ extends layout
 
 block head
   link(rel="stylesheet", href="/stylesheets/files.css")
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  script(src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js")
   script(src="/javascripts/files.js")
 
 block content
@@ -11,5 +11,14 @@ block content
       div#header
         a(onclick="backDirectory();")
           img(src="/img/back.svg", alt="Back")
-        span#address
+        span#path
       div#items
+      div#memo
+        div#memo-header
+          div#memo-title
+          div#memo-control
+            a#save(onclick="saveMemo();")
+              img(src="/img/save.svg", alt="Save")
+            a#clear(onclick="hideMemo();")
+              img(src="/img/clear.svg", alt="Back")
+        textarea#memo-contents
