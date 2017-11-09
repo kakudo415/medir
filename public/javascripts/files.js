@@ -42,7 +42,9 @@ function main() {
 }
 function showDirectory() {
   currentData = data;
-  recursive(0);
+  if (path.length > 0) {
+    recursive(0);
+  }
   function recursive(index) {
     currentData = currentData[path[index]];
     if (alreadyHave.indexOf(currentData.id) == -1) {
@@ -60,6 +62,11 @@ function showDirectory() {
     if (i != "id" && i != "memo") {
       source += "<a onclick=changeDirectory(" + "'" + i + "'" + ");>" + i + "</a>";
       contentsCount++;
+    } else if (i == "memo") {
+      for (let i in currentData.memo) {
+        source += "<a onclick=showMemo(" + "'" + i + "'" + ");>" + i + "</a>";
+        contentsCount++;
+      }
     }
   }
   if (contentsCount < 1) {
@@ -76,6 +83,9 @@ function showPath() {
     pathString += " / " + path[i];
   }
   pathHTML.innerText = pathString;
+}
+function showMemo(name) {
+  console.log("Memo is " + name);
 }
 function changeDirectory(name) {
   path.push(name);
