@@ -12,7 +12,8 @@ let data = {
           memo: {
             memo3: 3,
             memo4: 4
-          }
+          },
+          id: 6
         },
         id: 5
       },
@@ -53,14 +54,16 @@ function showDirectory() {
       recursive(++index);
     }
   }
+  let contentsCount = 0;
   let source = "";
-  if (Object.keys(currentData).length < 2) {
-    source = "<div id='nocontents'>No Contents</div>";
-  }
   for (let i in currentData) {
-    if (i != "id") {
+    if (i != "id" && i != "memo") {
       source += "<a onclick=changeDirectory(" + "'" + i + "'" + ");>" + i + "</a>";
+      contentsCount++;
     }
+  }
+  if (contentsCount < 1) {
+    source = "<div id='nocontents'>No Contents</div>";
   }
   itemsHTML.innerHTML = source;
 }
