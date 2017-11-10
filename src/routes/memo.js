@@ -28,13 +28,14 @@ router.put("/edit/:id", (req, res) => {
       return;
     }
 
-    if(memo.parent_id != req.params.id) {
+    if(memo.parent_id != req.body.id) {
       res.render("home", {massage: "I can not get consistency"});
       return;
     }
-
-    memo.content = req.body.content;
-    memo.name = req.body.name;
+    console.log(memo);
+    console.log(req.body);
+    if(req.body.name) memo.name = req.body.name;
+    if(req.body.value) memo.content = req.body.value;
     memo.updated_at = new Date();
 
     memo.update().then(() => {

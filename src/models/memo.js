@@ -3,7 +3,7 @@ const db = require("../db");
 class Memo {
 
   static find(id) {
-    return new Promise((resole, reject) => {
+    return new Promise((resolve, reject) => {
       let query = "SELECT * FROM `memos` WHERE id = ? LIMIT 1";
 
       db.query(query, [id], (err, res) => {
@@ -11,7 +11,6 @@ class Memo {
           reject(err);
           return;
         }
-
         resolve(new Memo(res[0]));
       });
     });
@@ -19,7 +18,7 @@ class Memo {
 
   static create(parent, name) {
     return new Promise((resolve, reject) => {
-      let query = "INSERT INTO `memos` (dir_id, name, content, created_at, updated_at) VALUES (?, ?, ?, ?, ?)";
+      let query = "INSERT INTO `memos` (parent_id, name, content, created_at, updated_at) VALUES (?, ?, ?, ?, ?)";
       let date = new Date();
 
       db.query(query, [parent, name, '', date, date], (err, res) => {

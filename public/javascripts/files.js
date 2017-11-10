@@ -60,6 +60,7 @@ function showDirectory() {
       }
     } else if (i == "memo") {
       for (let i in currentDirectory.memo) {
+        console.log(i);
         source += "<a onclick=showMemo(" + "'" + i + "'" + ");>" + i + "</a>";
         contentsCount++;
       }
