@@ -62,7 +62,8 @@ router.delete("/:id", (req, res) => {
       res.render("home", {massage: "That directory does not exist"});
       return;
     }
-
+    console.log(dir);
+    console.log(req.body.id);
     if(dir.parent_id != req.body.id) {
       res.render("home", {massage: "I can not get cnsistency"});
       return;

@@ -30,11 +30,11 @@ function main() {
 function showDirectory() {
   currentDirectory = directory;
   if (path.length > 0) {
-    recursive(0);
+    recursive(path.length - 1);
   }
   function recursive(index) {
     let tmp;
-    currentDirectory = currentDirectory[path[index]];
+    currentDirectory = currentDirectory.dir[path[index]];
     tmp = directory.id;
     for (let i = 0; i < index; i++) {
       tmp = directory[path[i]];
@@ -60,8 +60,7 @@ function showDirectory() {
       }
     } else if (i == "memo") {
       for (let i in currentDirectory.memo) {
-        console.log(i);
-        source += "<a onclick=showMemo(" + "'" + i + "'" + "); class=memo>" + i + "</a>";
+        source += "<a onclick=showMemo(" + "'" + i + "'" + ");>" + i + "</a>";
         contentsCount++;
       }
     }

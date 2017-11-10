@@ -32,8 +32,7 @@ router.put("/edit/:id", (req, res) => {
       res.render("home", {massage: "I can not get consistency"});
       return;
     }
-    console.log(memo);
-    console.log(req.body);
+    
     if(req.body.name) memo.name = req.body.name;
     if(req.body.value) memo.content = req.body.value;
     memo.updated_at = new Date();
