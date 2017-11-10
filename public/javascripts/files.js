@@ -186,3 +186,31 @@ function backDirectory() {
   showDirectory();
   showPath();
 }
+function addDirectory() {
+  let newName = window.prompt("Please enter new directory name");
+  $.ajax(location.href + "/dir/create", {
+    type: "put",
+    data: {
+      name: newName
+    }
+  }).done((data) => {
+    currentDirectory[newName].id = data;
+  }).fail(() => {
+    console.log("Sorry.Communication with the server failed.");
+  });
+  showDirectory();
+}
+function addMemo() {
+  let newName = window.prompt("Please enter new memo name");
+  $.ajax(location.href + "/memo/create", {
+    type: "put",
+    data: {
+      name: newName
+    }
+  }).done((data) => {
+    currentDirectory.memo[newName] = data;
+  }).fail(() => {
+    console.log("Sorry.Communication with the server failed.");
+  });
+  showDirectory();
+}
