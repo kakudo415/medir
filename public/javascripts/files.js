@@ -21,7 +21,6 @@ function main() {
   }).done((data) => {
     directory = data;
     parentID.push(data.id);
-    console.log(directory);
     showDirectory();
     showPath();
   }).fail(() => {
@@ -40,7 +39,7 @@ function showDirectory() {
     for (let i = 0; i < index; i++) {
       tmp = directory[path[i]];
     }
-    $.ajax(location.href + "/dir/" + tmp.id, {
+    $.ajax(location.href + "/dir/" + tmp, {
       type: "post"
     }).done((data) => {
       currentDirectory.push(data);
