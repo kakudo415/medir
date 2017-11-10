@@ -1,10 +1,10 @@
 const db = require("../db");
 
-class Dir {
+class Memo {
 
   static find(id) {
     return new Promise((resole, reject) => {
-      let query = "SELECT * FROM `dirs` WHERE id = ? LIMIT 1";
+      let query = "SELECT * FROM `memos` WHERE id = ? LIMIT 1";
 
       db.query(query, [id], (err, res) => {
         if(err) {
@@ -12,17 +12,17 @@ class Dir {
           return;
         }
 
-        resolve(new Dir(res[0]));
+        resolve(new Memo(res[0]));
       });
     });
   }
 
   static create(parent, name) {
     return new Promise((resolve, reject) => {
-      let query = "INSERT INTO `dirs` (parent_id, name, created_at, updated_at) VALUES (?, ?, ?, ?)";
+      let query = "INSERT INTO `memos` (dir_id, name, content, created_at, updated_at) VALUES (?, ?, ?, ?, ?)";
       let date = new Date();
 
-      db.query(query, [parent, name, date, date], (err, res) => {
+      db.query(query, [parent, name, '', date, date], (err, res) => {
         if(err) {
           reject(err);
           return;
@@ -34,9 +34,9 @@ class Dir {
   }
 
 
-  static childFinds(id) {
+  static commonParentFinds(id) {
     return new Promise((resolve, reject) => {
-      let query = "SELECT * FROM `dirs` WHERE parent_id = ?";
+      let query = "SELECT * FROM `memos` WHERE parent_id = ?";
 
       db.query(query, [id], (err, res) => {
         if(err) {
@@ -54,6 +54,7 @@ class Dir {
     this.id = info.id;
     this.parent_id = info.parent_id;
     this.name = info.name;
+    this.content = info.content;
     this.created_at = info.created_at;
     this.updated_at = info.updated_at;
   }
@@ -63,6 +64,7 @@ class Dir {
       id: this.id,
       parent_id: this.parent_id,
       name: this.name,
+      content: this.content,
       created_at: this.created_at,
       updated_at: this.updated_at
     }
@@ -70,7 +72,7 @@ class Dir {
 
   update() {
     return new Promise((resolve, reject) => {
-      let query = "UPDATE dirs SET ? WHERE id = ? LIMIT 1";
+      let query = "UPDATE memos SET ? WHERE id = ? LIMIT 1";
 
       db.query(query, [this.fields(), this.id], (err, res) => {
         if(err) {
@@ -85,7 +87,7 @@ class Dir {
 
   delete() {
     return new Promise((resolve, reject) => {
-      let query = "DELETE FROM dirs WHERE id = ? LIMIT 1";
+      let query = "DELETE FROM memos WHERE id = ? LIMIT 1";
 
       db.query(query, [this.id], (err, res) => {
         if(err) {
@@ -99,4 +101,4 @@ class Dir {
   }
 }
 
-module.exports = Dir;
+module.exports = Memo;

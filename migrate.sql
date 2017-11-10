@@ -16,14 +16,17 @@ CREATE TABLE `dirs` (
   id BIGINT UNSIGNED AUTO_INCREMENT NOT NULL PRIMARY KEY,
   parent_id BIGINT UNSIGNED,
   name VARCHAR(255) NOT NULL,
+  created_at DATETIME NOT NULL,
+  updated_at DATETIME NOT NULL,
   index(parent_id)
 );
 
 CREATE TABLE `memos` (
   id BIGINT UNSIGNED AUTO_INCREMENT NOT NULL PRIMARY KEY,
-  dir_id BIGINT UNSIGNED NOT NULL,
+  parent_id BIGINT UNSIGNED NOT NULL,
+  name VARCHAR(255) NOT NULL,
   content MEDIUMTEXT,
   created_at DATETIME NOT NULL,
   updated_at DATETIME NOT NULL,
-  index(dir_id)
+  index(parent_id)
 );

@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const db = require("../db");
 const Room = require("../models/room");
+const error = require("../error");
 
 
 router.get("/", (req, res) => {
@@ -32,11 +33,5 @@ router.post("/create", (req, res) => {
     error(err, res);
   });
 });
-
-
-function error(err, res) {
-  console.log(err);
-  res.render("home", {massage: "internal server error try again later"});
-}
 
 module.exports = router;
