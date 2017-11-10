@@ -192,7 +192,7 @@ function addDirectory() {
   $.ajax(location.href + "/dir/create", {
     type: "put",
     data: {
-      id: parentID,
+      id: parentID[parentID.length - 1],
       name: newName
     }
   }).done((data) => {
@@ -208,7 +208,7 @@ function addMemo() {
   $.ajax(location.href + "/memo/create", {
     type: "put",
     data: {
-      id: parentID,
+      id: parentID[parentID.length - 1],
       name: newName
     }
   }).done((data) => {

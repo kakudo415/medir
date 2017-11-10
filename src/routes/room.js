@@ -20,7 +20,7 @@ router.post("/:name", (req, res) => {
       res.render("home", {massage: "That room does not exist"});
       return;
     }
-    let sendData = {dir: {}, memo: {}};
+    let sendData = {dir: {}, memo: {}, id: room.root_id};
     Dir.childFinds(room.root_id).then((dirs) => {
       for(name in dirs) {
         sendData.dir[name] = {id: dirs[name].id};
