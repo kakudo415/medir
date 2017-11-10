@@ -55,13 +55,13 @@ function showDirectory() {
   for (let i in currentDirectory) {
     if (i == "dir") {
       for (let i in currentDirectory.dir) {
-        source += "<a onclick=changeDirectory(" + "'" + i + "'" + ");>" + i + "</a>";
+        source += "<a onclick=changeDirectory(" + "'" + i + "'" + "); class=folder>" + i + "</a>";
         contentsCount++;
       }
     } else if (i == "memo") {
       for (let i in currentDirectory.memo) {
         console.log(i);
-        source += "<a onclick=showMemo(" + "'" + i + "'" + ");>" + i + "</a>";
+        source += "<a onclick=showMemo(" + "'" + i + "'" + "); class=memo>" + i + "</a>";
         contentsCount++;
       }
     }

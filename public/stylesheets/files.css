@@ -70,8 +70,6 @@ img{
     }
       #items > a{
         height: 32px;
-        padding: 0 4px;
-        line-height: 32px;
       }
       #items > a:not(:last-child){
         border-bottom: 1px solid rgba(0, 0, 0, 0.12);
@@ -83,6 +81,26 @@ img{
         padding: 32px 0;
         color: rgba(0, 0, 0, 0.54);
         text-align: center;
+      }
+      #items > .folder, #items > .memo{
+        display: flex;
+        align-items: center;
+      }
+      .folder::before{
+        height: 24px;
+        width: 24px;
+        content: "";
+        margin: 0 8px 0 4px;
+        display: block;
+        background: url("../img/folder.svg") no-repeat;
+      }
+      .memo::before{
+        height: 24px;
+        width: 24px;
+        content: "";
+        margin: 0 8px 0 4px;
+        display: block;
+        background: url("../img/memo.svg") no-repeat;
       }
     #memo{
       min-height: 100%;
