@@ -114,6 +114,9 @@ function hideMemo() {
 function saveMemo() {
   $.ajax
 }
+function deleteMemo() {
+  console.log("Delete" + currentMemo + currentDirectory.id);
+}
 function changeDirectory(name) {
   path.push(name);
   showDirectory();
