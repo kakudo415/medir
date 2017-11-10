@@ -54,6 +54,7 @@ function showDirectory() {
   for (let i in currentDirectory) {
     if (i == "dir") {
       for (let i in currentDirectory.dir) {
+        console.log(i);
         source += "<a onclick=changeDirectory(" + "'" + i + "'" + "); class=folder>" + i + "</a>";
         contentsCount++;
       }
