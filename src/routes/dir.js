@@ -26,6 +26,7 @@ router.post("/:id", (req, res) => {
 });
 
 router.put("/create", (req, res) => {
+  console.log(req.body);
   Dir.create(req.body.id, req.body.name).then((id) => {
     res.send(201, id);
   }).catch((err) => {
