@@ -23,12 +23,13 @@ router.post("/:name", (req, res) => {
     let sendData = {dir: {}, memo: {}, id: room.root_id};
     Dir.childFinds(room.root_id).then((dirs) => {
       for(name in dirs) {
-        sendData.dir[name] = {id: dirs[name].id};
+        sendData.dir[dirs[name].name] = {id: dirs[name].id};
       }
       Memo.commonParentFinds(room.root_id).then((memos) => {
         for(name in memos) {
-          sendData.memo[name] = memos[name].id;
+          sendData.memo[memos[name].name] = memos[name].id;
         }
+        console.log(sendData);
         res.send(sendData);
       }).catch((err) => {
         error(err, res);

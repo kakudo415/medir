@@ -21,11 +21,11 @@ function main() {
   }).done((data) => {
     directory = data;
     parentID.push(data.id);
+    showDirectory();
+    showPath();
   }).fail(() => {
     window.alert("Sorry.Communication with the server failed.");
   });
-  showDirectory();
-  showPath();
 }
 function showDirectory() {
   currentDirectory = directory;
@@ -33,7 +33,7 @@ function showDirectory() {
     recursive(0);
   }
   function recursive(index) {
-    let tmp;    
+    let tmp;
     currentDirectory = currentDirectory[path[index]];
     tmp = directory.id;
     for (let i = 0; i < index; i++) {

@@ -9,11 +9,11 @@ router.post("/:id", (req, res) => {
   let sendData = {id: req.params.id, dir: {}, memo: {}}
   Dir.childFinds(req.params.id).then((dirs) => {
     for(name in dirs) {
-      sendData.dir[name] = {id: dirs[name].id};
+      sendData.dir[dirs[name].name] = {id: dirs[name].id};
     }
     Memo.commonParentFinds(req.params.id).then((memos) => {
       for(name in memos) {
-        sendData.memo[name] = memos[name].id;
+        sendData.memo[dirs[name].name] = memos[name].id;
       }
 
       res.send(sendData);
