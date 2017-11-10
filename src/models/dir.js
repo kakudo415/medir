@@ -3,7 +3,7 @@ const db = require("../db");
 class Dir {
 
   static find(id) {
-    return new Promise((resole, reject) => {
+    return new Promise((resolve, reject) => {
       let query = "SELECT * FROM `dirs` WHERE id = ? LIMIT 1";
 
       db.query(query, [id], (err, res) => {

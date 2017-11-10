@@ -21,6 +21,7 @@ function main() {
   }).done((data) => {
     directory = data;
     parentID.push(data.id);
+    console.log(directory);
     showDirectory();
     showPath();
   }).fail(() => {
