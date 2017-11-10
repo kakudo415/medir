@@ -82,7 +82,7 @@ img{
         color: rgba(0, 0, 0, 0.54);
         text-align: center;
       }
-      #items > .folder, #items > .memo{
+      #items > .folder, #items > .text{
         display: flex;
         align-items: center;
       }
@@ -94,13 +94,13 @@ img{
         display: block;
         background: url("../img/folder.svg") no-repeat;
       }
-      .memo::before{
+      .text::before{
         height: 24px;
         width: 24px;
         content: "";
         margin: 0 8px 0 4px;
         display: block;
-        background: url("../img/memo.svg") no-repeat;
+        background: url("../img/text.svg") no-repeat;
       }
     #memo{
       min-height: 100%;
