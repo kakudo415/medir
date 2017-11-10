@@ -3,40 +3,13 @@ let path = [];
 let alreadyHave = [0];
 let currentDirectory;
 let currentMemo;
+let parentID = [0];
 let pathHTML;
 let itemsHTML;
 let memoHTML;
 let memoTitle;
 let memoContents;
-let directory = {
-  dir: {
-    dir1: {
-      dir4: {
-        dir5: {
-          memo: {
-            memo3: 3,
-            memo4: 4
-          },
-          id: 6
-        },
-        id: 5
-      },
-      id: 2
-    },
-    dir2: {
-      id: 3
-    },
-    dir3: {
-      id: 4
-    },
-    id: 1
-  },
-  memo: {
-    memo1: 1,
-    memo2: 2
-  },
-  id: 0
-};
+let directory;
 window.onload = main;
 function main() {
   pathHTML = document.getElementById("path");
@@ -44,6 +17,13 @@ function main() {
   memoHTML = document.getElementById("memo");
   memoTitle = document.getElementById("memo-title");
   memoContents = document.getElementById("memo-contents");
+  $.ajax(location.href, {
+    type: "post"
+  }).done((data) => {
+    directory = data;
+  }).fail(() => {
+    window.alert("Sorry.Communication with the server failed.");
+  });
   showDirectory();
   showPath();
 }
@@ -103,26 +83,103 @@ function showPath() {
   }
   pathHTML.innerText = pathString;
 }
+function renameDirectory() {
+  let newName = window.prompt("Please enter new directory name", path[path.length - 1]);
+  $.ajax(location.href + "/dir/" + currentDirectory.id, {
+    type: "put",
+    data: {
+      id: parentID[parentID.length - 1],
+      rename: newName
+    }
+  }).done(() => {
+    path[path.length - 1] = newName;
+    let tmp = path[path.length - 1];
+    backDirectory();
+    currentDirectory[newName] = currentDirectory[tmp];
+    delete currentDirectory[tmp];
+    changeDirectory(newName);
+  }).fail(() => {
+    console.log("Sorry.Communication with the server failed.");
+  });
+}
+function deleteDirectory() {
+  let tmp = path[path.length - 1];
+  $.ajax(location.href + "/dir/" + currentDirectory.id, {
+    type: "delete",
+    data: {
+      id: parentID[parentID.length - 1]
+    }
+  });
+  backDirectory();
+  delete currentDirectory[tmp];
+  showDirectory();
+}
 function showMemo(name) {
-  memoTitle.innerText = name;
-  memoHTML.style.display = "block";
   currentMemo = name;
+  memoTitle.innerText = name;
+  $.ajax(location.href + "/memo/" + currentDirectory.memo[currentMemo], {
+    type: "post"
+  }).done((data) => {
+    memoContents.innerText = data;
+  }).fail(() => {
+    console.log("Sorry.Communication with the server failed.");
+  })
+  memoHTML.style.display = "block";
 }
 function hideMemo() {
   memoHTML.style.display = "none";
 }
+function renameMemo() {
+  hideMemo();
+  let newName = window.prompt("Please enter new Memo name", currentMemo);
+  $.ajax(location.href + "/memo/" + currentDirectory.memo[currentMemo], {
+    type: "put",
+    data: {
+      id: parentID[parentID.length - 1],
+      rename: newName
+    }
+  }).done(() => {
+    delete currentDirectory.memo[currentMemo];
+  }).fail(() => {
+    console.log("Sorry.Communication with the server failed.");
+  });
+  showMemo(newName);
+}
 function saveMemo() {
-  $.ajax
+  $.ajax(location.href + "/memo/" + currentDirectory.memo[currentMemo], {
+    type: "put",
+    data: {
+      id: currentDirectory.id,
+      value: memoContents.value
+    }
+  }).fail(() => {
+    console.log("Sorry.Communication with the server failed.");
+  });
 }
 function deleteMemo() {
-  console.log("Delete" + currentMemo + currentDirectory.id);
+  hideMemo();
+  $.ajax(location.href + "/memo/" + currentDirectory.memo[currentMemo], {
+    type: "delete",
+    data: {
+      id: parentID[parentID.length - 1]
+    }
+  }).done(() => {
+    delete currentDirectory.memo[currentMemo];
+  }).fail(() => {
+    console.log("Sorry.Communication with the server failed.");
+  });
+  showDirectory();
 }
 function changeDirectory(name) {
+  parentID.push(currentDirectory.id);
   path.push(name);
   showDirectory();
   showPath();
 }
 function backDirectory() {
+  if (parentID.length > 0) {
+    parentID.pop();
+  }
   if (path.length > 0) {
     path.pop();
   }
