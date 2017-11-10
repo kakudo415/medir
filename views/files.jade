@@ -12,13 +12,25 @@ block content
         a(onclick="backDirectory();")
           img(src="/img/back.svg", alt="Back")
         span#path
+        a.rename(onclick="renameDirectory();")
+          img(src="/img/create.svg", alt="Rename Directory")
+        a(onclick="addMemo();")
+          img(src="/img/memo.svg", alt="Add Memo")
+        a(onclick="addDirectory();")
+          img(src="/img/box.svg", alt="Add Directory")
+        a.delete(onclick="deleteDirectory();")
+          img(src="/img/clear.svg", alt="Delete Directory")
       div#items
       div#memo
         div#memo-header
+          a#back(onclick="hideMemo();")
+            img(src="/img/back.svg", alt="Back")
           div#memo-title
-          div#memo-control
+          div
+            a.rename(onclick="renameMemo();")
+              img(src="/img/create.svg", alt="Rename Memo")
             a#save(onclick="saveMemo();")
-              img(src="/img/save.svg", alt="Save")
-            a#clear(onclick="hideMemo();")
-              img(src="/img/clear.svg", alt="Back")
+              img(src="/img/save.svg", alt="Save Memo")
+            a.delete(onclick="deleteMemo();")
+              img(src="/img/clear.svg", alt="Delete Memo")
         textarea#memo-contents
