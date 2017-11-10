@@ -11,8 +11,8 @@ class Memo {
           reject(err);
           return;
         }
-        if(!res) resolve(false);
-        resolve(new Memo(res[0]));
+        if(res.length == 0) resolve(false);
+        else resolve(new Memo(res[0]));
       });
     });
   }

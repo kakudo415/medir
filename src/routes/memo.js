@@ -34,7 +34,7 @@ router.put("/edit/:id", (req, res) => {
       return;
     }
 
-    if(req.body.name) memo.name = req.body.name;
+    if(req.body.rename) memo.name = req.body.rename;
     if(req.body.value) memo.content = req.body.value;
     memo.updated_at = new Date();
 

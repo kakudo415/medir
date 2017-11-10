@@ -131,6 +131,7 @@ function renameMemo() {
       rename: newName
     }
   }).done(() => {
+    currentDirectory.memo[newName] = currentDirectory.memo[currentMemo];
     delete currentDirectory.memo[currentMemo];
     showMemo(newName);
   }).fail(() => {

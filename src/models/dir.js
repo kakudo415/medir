@@ -11,8 +11,8 @@ class Dir {
           reject(err);
           return;
         }
-        if(!res) resolve(false);
-        resolve(new Dir(res[0]));
+        if(res.length == 0) resolve(false);
+        else resolve(new Dir(res[0]));
       });
     });
   }
