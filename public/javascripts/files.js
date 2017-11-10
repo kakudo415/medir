@@ -85,7 +85,7 @@ function showPath() {
 }
 function renameDirectory() {
   let newName = window.prompt("Please enter new directory name", path[path.length - 1]);
-  $.ajax(location.href + "/dir/" + currentDirectory.id, {
+  $.ajax(location.href + "/dir/edit/" + currentDirectory.id, {
     type: "put",
     data: {
       id: parentID[parentID.length - 1],
@@ -132,7 +132,7 @@ function hideMemo() {
 function renameMemo() {
   hideMemo();
   let newName = window.prompt("Please enter new Memo name", currentMemo);
-  $.ajax(location.href + "/memo/" + currentDirectory.memo[currentMemo], {
+  $.ajax(location.href + "/memo/edit/" + currentDirectory.memo[currentMemo], {
     type: "put",
     data: {
       id: parentID[parentID.length - 1],
@@ -146,7 +146,7 @@ function renameMemo() {
   showMemo(newName);
 }
 function saveMemo() {
-  $.ajax(location.href + "/memo/" + currentDirectory.memo[currentMemo], {
+  $.ajax(location.href + "/memo/edit/" + currentDirectory.memo[currentMemo], {
     type: "put",
     data: {
       id: currentDirectory.id,
