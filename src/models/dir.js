@@ -11,7 +11,7 @@ class Dir {
           reject(err);
           return;
         }
-
+        if(!res) resolve(false);
         resolve(new Dir(res[0]));
       });
     });

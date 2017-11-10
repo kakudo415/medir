@@ -29,41 +29,39 @@ function main() {
 }
 function showDirectory() {
   currentDirectory = directory;
-  if (path.length > 0) {
-    for(let i = 0; i < path.length; i++) {
-      currentDirectory = currentDirectory.dir[path[i]];
-    }
-    recursive();
+  for(let i = 0; i < path.length; i++) {
+    currentDirectory = currentDirectory.dir;
+    currentDirectory = currentDirectory[path[i]];
   }
-  function recursive() {
-    $.ajax(location.href + "/dir/" + currentDirectory.id, {
-      type: "post"
-    }).done((data) => {
-      currentDirectory = data;
-      let contentsCount = 0;
-      let source = "";
-      for (let i in currentDirectory) {
-        console.log(i);
-        if (i == "dir") {
-          for (let i in currentDirectory.dir) {
-            source += "<a onclick=changeDirectory(" + "'" + i + "'" + "); class=folder>" + i + "</a>";
-            contentsCount++;
-          }
-        } else if (i == "memo") {
-          for (let i in currentDirectory.memo) {
-            source += "<a onclick=showMemo(" + "'" + i + "'" + "); class=text>" + i + "</a>";
-            contentsCount++;
-          }
+  $.ajax(location.href + "/dir/" + currentDirectory.id, {
+    type: "post"
+  }).done((data) => {
+    currentDirectory.dir = data.dir;
+    currentDirectory.memo = data.memo;
+    currentDirectory.id = data.id;
+
+    let contentsCount = 0;
+    let source = "";
+    for (let i in currentDirectory) {
+      if (i == "dir") {
+        for (let i in currentDirectory.dir) {
+          source += "<a onclick=changeDirectory(" + "'" + i + "'" + "); class=folder>" + i + "</a>";
+          contentsCount++;
         }
-      };
-      if (contentsCount < 1) {
-        source = "<div id='nocontents'>No Contents</div>";
+      } else if (i == "memo") {
+        for (let i in currentDirectory.memo) {
+          source += "<a onclick=showMemo(" + "'" + i + "'" + "); class=text>" + i + "</a>";
+          contentsCount++;
+        }
       }
-      itemsHTML.innerHTML = source;
-    }).fail(() => {
-      console.log("Sorry.Communication with the server failed.");
-    });
-  }
+    };
+    if (contentsCount < 1) {
+      source = "<div id='nocontents'>No Contents</div>";
+    }
+    itemsHTML.innerHTML = source;
+  }).fail(() => {
+    console.log("Sorry.Communication with the server failed.");
+  });
 }
 function showPath() {
   let pathString = "";
@@ -90,11 +88,7 @@ function renameDirectory() {
     }
   }).done(() => {
     path[path.length - 1] = newName;
-    let tmp = path[path.length - 1];
-    backDirectory();
-    currentDirectory[newName] = currentDirectory[tmp];
-    delete currentDirectory[tmp];
-    changeDirectory(newName);
+    showPath();
   }).fail(() => {
     console.log("Sorry.Communication with the server failed.");
   });
@@ -118,7 +112,7 @@ function showMemo(name) {
   $.ajax(location.href + "/memo/" + currentDirectory.memo[currentMemo], {
     type: "post"
   }).done((data) => {
-    memoContents.innerText = data;
+    memoContents.value = data;
     memoHTML.style.display = "block";
   }).fail(() => {
     console.log("Sorry.Communication with the server failed.");
