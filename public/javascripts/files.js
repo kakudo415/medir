@@ -111,10 +111,11 @@ function deleteDirectory() {
     data: {
       id: parentID[parentID.length - 1]
     }
+  }).done(() => {
+    backDirectory();
+    delete currentDirectory[tmp];
+    showDirectory();
   });
-  backDirectory();
-  delete currentDirectory[tmp];
-  showDirectory();
 }
 function showMemo(name) {
   currentMemo = name;
@@ -123,10 +124,10 @@ function showMemo(name) {
     type: "post"
   }).done((data) => {
     memoContents.innerText = data;
+    memoHTML.style.display = "block";
   }).fail(() => {
     console.log("Sorry.Communication with the server failed.");
   })
-  memoHTML.style.display = "block";
 }
 function hideMemo() {
   memoHTML.style.display = "none";
@@ -142,10 +143,10 @@ function renameMemo() {
     }
   }).done(() => {
     delete currentDirectory.memo[currentMemo];
+    showMemo(newName);
   }).fail(() => {
     console.log("Sorry.Communication with the server failed.");
   });
-  showMemo(newName);
 }
 function saveMemo() {
   $.ajax(location.href + "/memo/edit/" + currentDirectory.memo[currentMemo], {
@@ -167,10 +168,10 @@ function deleteMemo() {
     }
   }).done(() => {
     delete currentDirectory.memo[currentMemo];
+    showDirectory();
   }).fail(() => {
     console.log("Sorry.Communication with the server failed.");
   });
-  showDirectory();
 }
 function changeDirectory(name) {
   parentID.push(currentDirectory.id);
@@ -199,10 +200,10 @@ function addDirectory() {
   }).done((data) => {
     currentDirectory.dir[newName] = {};
     currentDirectory.dir[newName].id = data;
+    showDirectory();
   }).fail(() => {
     console.log("Sorry.Communication with the server failed.");
   });
-  showDirectory();
 }
 function addMemo() {
   let newName = window.prompt("Please enter new memo name");
@@ -214,8 +215,8 @@ function addMemo() {
     }
   }).done((data) => {
     currentDirectory.memo[newName] = data;
+    showDirectory();
   }).fail(() => {
     console.log("Sorry.Communication with the server failed.");
   });
-  showDirectory();
 }
