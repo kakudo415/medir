@@ -53,9 +53,11 @@ function showDirectory() {
   let contentsCount = 0;
   let source = "";
   for (let i in currentDirectory) {
-    if (i != "id" && i != "memo") {
-      source += "<a onclick=changeDirectory(" + "'" + i + "'" + ");>" + i + "</a>";
-      contentsCount++;
+    if (i == "dir") {
+      for (let i in currentDirectory.dir) {
+        source += "<a onclick=changeDirectory(" + "'" + i + "'" + ");>" + i + "</a>";
+        contentsCount++;
+      }
     } else if (i == "memo") {
       for (let i in currentDirectory.memo) {
         source += "<a onclick=showMemo(" + "'" + i + "'" + ");>" + i + "</a>";
@@ -195,8 +197,8 @@ function addDirectory() {
       name: newName
     }
   }).done((data) => {
-    currentDirectory[newName] = {};
-    currentDirectory[newName].id = data;
+    currentDirectory.dir[newName] = {};
+    currentDirectory.dir[newName].id = data;
   }).fail(() => {
     console.log("Sorry.Communication with the server failed.");
   });
