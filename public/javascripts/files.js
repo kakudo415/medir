@@ -33,14 +33,8 @@ function showDirectory() {
     recursive(path.length - 1);
   }
   function recursive(index) {
-<<<<<<< HEAD
-    let tmp;
-    currentDirectory = currentDirectory.dir[path[index]];
-    tmp = directory.id;
-=======
     currentDirectory = currentDirectory.dir[path[index]];
     let tmp = directory.id;
->>>>>>> b341ecab1734bc23babd3fc4d98228a4efcc4abb
     for (let i = 0; i < index; i++) {
       tmp = directory[path[i]];
     }
@@ -65,12 +59,7 @@ function showDirectory() {
       }
     } else if (i == "memo") {
       for (let i in currentDirectory.memo) {
-<<<<<<< HEAD
-        source += "<a onclick=showMemo(" + "'" + i + "'" + ");>" + i + "</a>";
-=======
-        console.log(i);
         source += "<a onclick=showMemo(" + "'" + i + "'" + "); class=text>" + i + "</a>";
->>>>>>> b341ecab1734bc23babd3fc4d98228a4efcc4abb
         contentsCount++;
       }
     }
