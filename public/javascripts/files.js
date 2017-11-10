@@ -1,9 +1,9 @@
 'use strict';
 let path = [];
-let alreadyHave = [0];
+let alreadyHave = [];
 let currentDirectory;
 let currentMemo;
-let parentID = [0];
+let parentID = [];
 let pathHTML;
 let itemsHTML;
 let memoHTML;
@@ -21,6 +21,7 @@ function main() {
     type: "post"
   }).done((data) => {
     directory = data;
+    parentID.push(data.id);
   }).fail(() => {
     window.alert("Sorry.Communication with the server failed.");
   });
