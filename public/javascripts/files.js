@@ -42,7 +42,7 @@ function showDirectory() {
     $.ajax(location.href + "/dir/" + tmp, {
       type: "post"
     }).done((data) => {
-      currentDirectory.push(data);
+      currentDirectory = data;
     }).fail(() => {
       console.log("Sorry.Communication with the server failed.");
     });
