@@ -1,6 +1,5 @@
 'use strict';
 let path = [];
-let alreadyHave = [];
 let currentDirectory;
 let currentMemo;
 let parentID = [];
@@ -28,6 +27,8 @@ function main() {
   showDirectory();
   showPath();
 }
+let tmp;
+
 function showDirectory() {
   currentDirectory = directory;
   if (path.length > 0) {
@@ -35,18 +36,17 @@ function showDirectory() {
   }
   function recursive(index) {
     currentDirectory = currentDirectory[path[index]];
-    if (alreadyHave.indexOf(currentDirectory.id) == -1) {
-      $.ajax(location.href + "/dir/" + path[index],
-        {
-          type: "post"
-        }).done((data) => {
-          currentDirectory.push(data);
-          alreadyHave.push(data.id);
-        }).fail(() => {
-          console.log("Sorry.Communication with the server failed.");
-        }
-        );
+    tmp = directory.id;
+    for (let i = 0; i < index; i++) {
+      tmp = directory[path[i]];
     }
+    $.ajax(location.href + "/dir/" + tmp.id, {
+      type: "post"
+    }).done((data) => {
+      currentDirectory.push(data);
+    }).fail(() => {
+      console.log("Sorry.Communication with the server failed.");
+    });
     if ((path.length - 1) > index) {
       recursive(++index);
     }
