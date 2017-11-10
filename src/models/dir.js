@@ -35,6 +35,7 @@ class Dir {
 
 
   static childFinds(id) {
+    console.log(id);
     return new Promise((resolve, reject) => {
       let query = "SELECT * FROM `dirs` WHERE parent_id = ?";
 

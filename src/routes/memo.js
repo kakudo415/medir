@@ -15,13 +15,13 @@ router.post("/:id", (req, res) => {
 
 router.put("/create", (req, res) => {
   Memo.create(req.body.id, req.body.name).then((id) => {
-    res.send(id);
+    res.send(201, id);
   }).catch((err) => {
     error(err, res);
   });
 });
 
-router.put("/:id", (req, res) => {
+router.put("/edit/:id", (req, res) => {
   Memo.find(req.params.id).then((memo) => {
     if(!memo) {
       res.render("home", {massage: "That memo does not exist"});

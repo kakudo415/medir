@@ -11,7 +11,7 @@ router.post("/:id", (req, res) => {
     for(name in dirs) {
       sendData.dir[name] = {id: dirs[name].id};
     }
-    Memo.commonDirFinds(id).then((memos) => {
+    Memo.commonParentFinds(req.params.id).then((memos) => {
       for(name in memos) {
         sendData.memo[name] = memos[name].id;
       }
@@ -27,13 +27,13 @@ router.post("/:id", (req, res) => {
 
 router.put("/create", (req, res) => {
   Dir.create(req.body.id, req.body.name).then((id) => {
-    res.send(id);
+    res.send(201, id);
   }).catch((err) => {
     error(err, res);
   });
 });
 
-router.put("/:id", (req, res) => {
+router.put("/edit/:id", (req, res) => {
   Dir.find(req.params.id).then((dir) => {
     if(!dir) {
       res.render("home", {massage: "That directory does not exist"});

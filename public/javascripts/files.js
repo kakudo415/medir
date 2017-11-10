@@ -132,8 +132,13 @@ function hideMemo() {
 function renameMemo() {
   hideMemo();
   let newName = window.prompt("Please enter new Memo name", currentMemo);
+<<<<<<< Updated upstream
   $.ajax(location.href + "/memo/edit/" + currentDirectory.memo[currentMemo], {
     type: "put",
+=======
+  $.ajax(location.href + "/memo/" + currentDirectory.memo[currentMemo], {
+    type: "post",
+>>>>>>> Stashed changes
     data: {
       id: parentID[parentID.length - 1],
       rename: newName
@@ -146,7 +151,11 @@ function renameMemo() {
   showMemo(newName);
 }
 function saveMemo() {
+<<<<<<< Updated upstream
   $.ajax(location.href + "/memo/edit/" + currentDirectory.memo[currentMemo], {
+=======
+  $.ajax(location.href + "/memo/edit" + currentDirectory.memo[currentMemo], {
+>>>>>>> Stashed changes
     type: "put",
     data: {
       id: currentDirectory.id,
@@ -195,6 +204,7 @@ function addDirectory() {
       name: newName
     }
   }).done((data) => {
+    currentDirectory[newName] = {};
     currentDirectory[newName].id = data;
   }).fail(() => {
     console.log("Sorry.Communication with the server failed.");
