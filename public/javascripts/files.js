@@ -1,14 +1,14 @@
 'use strict';
 let path = [];
 let alreadyHave = [0];
-let currentData;
+let currentDirectory;
 let currentMemo;
 let pathHTML;
 let itemsHTML;
 let memoHTML;
 let memoTitle;
 let memoContents;
-let data = {
+let directory = {
   dir: {
     dir1: {
       dir4: {
@@ -48,16 +48,23 @@ function main() {
   showPath();
 }
 function showDirectory() {
-  currentData = data;
+  currentDirectory = directory;
   if (path.length > 0) {
     recursive(0);
   }
   function recursive(index) {
-    currentData = currentData[path[index]];
-    if (alreadyHave.indexOf(currentData.id) == -1) {
-      $.post(location.href + "/dir/" + path[index], {}, (res) => {
-        console.log(res);
-      });
+    currentDirectory = currentDirectory[path[index]];
+    if (alreadyHave.indexOf(currentDirectory.id) == -1) {
+      $.ajax(location.href + "/dir/" + path[index],
+        {
+          type: "post"
+        }).done((data) => {
+          currentDirectory.push(data);
+          alreadyHave.push(data.id);
+        }).fail(() => {
+          console.log("Sorry.Communication with the server failed.");
+        }
+        );
     }
     if ((path.length - 1) > index) {
       recursive(++index);
@@ -65,12 +72,12 @@ function showDirectory() {
   }
   let contentsCount = 0;
   let source = "";
-  for (let i in currentData) {
+  for (let i in currentDirectory) {
     if (i != "id" && i != "memo") {
       source += "<a onclick=changeDirectory(" + "'" + i + "'" + ");>" + i + "</a>";
       contentsCount++;
     } else if (i == "memo") {
-      for (let i in currentData.memo) {
+      for (let i in currentDirectory.memo) {
         source += "<a onclick=showMemo(" + "'" + i + "'" + ");>" + i + "</a>";
         contentsCount++;
       }
@@ -85,9 +92,14 @@ function showPath() {
   let pathString = "";
   if (path.length < 1) {
     pathString = "/";
-  }
-  for (let i in path) {
-    pathString += " / " + path[i];
+    $("#header > .rename")[0].style.display = "none";
+    $("#header > .delete")[0].style.display = "none";
+  } else {
+    for (let i in path) {
+      pathString += " / " + path[i];
+    }
+    $("#header > .rename")[0].style.display = "block";
+    $("#header > .delete")[0].style.display = "block";
   }
   pathHTML.innerText = pathString;
 }
@@ -96,11 +108,11 @@ function showMemo(name) {
   memoHTML.style.display = "block";
   currentMemo = name;
 }
-function hideMemo(){
+function hideMemo() {
   memoHTML.style.display = "none";
 }
-function saveMemo(){
-  
+function saveMemo() {
+  $.ajax
 }
 function changeDirectory(name) {
   path.push(name);
