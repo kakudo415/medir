@@ -30,44 +30,40 @@ function main() {
 function showDirectory() {
   currentDirectory = directory;
   if (path.length > 0) {
-    recursive(path.length - 1);
-  }
-  function recursive(index) {
-    currentDirectory = currentDirectory.dir[path[index]];
-    let tmp = directory.id;
-    for (let i = 0; i < index; i++) {
-      tmp = directory[path[i]];
+    for(let i = 0; i < path.length; i++) {
+      currentDirectory = currentDirectory.dir[path[i]];
     }
-    $.ajax(location.href + "/dir/" + tmp, {
+    recursive();
+  }
+  function recursive() {
+    $.ajax(location.href + "/dir/" + currentDirectory.id, {
       type: "post"
     }).done((data) => {
       currentDirectory = data;
+      let contentsCount = 0;
+      let source = "";
+      for (let i in currentDirectory) {
+        console.log(i);
+        if (i == "dir") {
+          for (let i in currentDirectory.dir) {
+            source += "<a onclick=changeDirectory(" + "'" + i + "'" + "); class=folder>" + i + "</a>";
+            contentsCount++;
+          }
+        } else if (i == "memo") {
+          for (let i in currentDirectory.memo) {
+            source += "<a onclick=showMemo(" + "'" + i + "'" + "); class=text>" + i + "</a>";
+            contentsCount++;
+          }
+        }
+      };
+      if (contentsCount < 1) {
+        source = "<div id='nocontents'>No Contents</div>";
+      }
+      itemsHTML.innerHTML = source;
     }).fail(() => {
       console.log("Sorry.Communication with the server failed.");
     });
-    if ((path.length - 1) > index) {
-      recursive(++index);
-    }
   }
-  let contentsCount = 0;
-  let source = "";
-  for (let i in currentDirectory) {
-    if (i == "dir") {
-      for (let i in currentDirectory.dir) {
-        source += "<a onclick=changeDirectory(" + "'" + i + "'" + "); class=folder>" + i + "</a>";
-        contentsCount++;
-      }
-    } else if (i == "memo") {
-      for (let i in currentDirectory.memo) {
-        source += "<a onclick=showMemo(" + "'" + i + "'" + "); class=text>" + i + "</a>";
-        contentsCount++;
-      }
-    }
-  }
-  if (contentsCount < 1) {
-    source = "<div id='nocontents'>No Contents</div>";
-  }
-  itemsHTML.innerHTML = source;
 }
 function showPath() {
   let pathString = "";
@@ -173,10 +169,10 @@ function deleteMemo() {
   });
 }
 function changeDirectory(name) {
-  parentID.push(currentDirectory.id);
   path.push(name);
   showDirectory();
   showPath();
+  parentID.push(currentDirectory.id);
 }
 function backDirectory() {
   if (parentID.length > 0) {

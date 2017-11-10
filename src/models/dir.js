@@ -56,7 +56,6 @@ class Dir {
     this.name = info.name;
     this.created_at = info.created_at;
     this.updated_at = info.updated_at;
-    console.log(info);
   }
 
   fields() {
