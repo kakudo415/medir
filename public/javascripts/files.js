@@ -27,14 +27,13 @@ function main() {
   showDirectory();
   showPath();
 }
-let tmp;
-
 function showDirectory() {
   currentDirectory = directory;
   if (path.length > 0) {
     recursive(0);
   }
   function recursive(index) {
+    let tmp;    
     currentDirectory = currentDirectory[path[index]];
     tmp = directory.id;
     for (let i = 0; i < index; i++) {
