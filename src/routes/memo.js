@@ -7,6 +7,7 @@ const error = require("../error");
 
 router.post("/:id", (req, res) => {
   Memo.find(req.params.id).then((memo) => {
+    if(!memo) res.send(404);
     res.send(memo.content);
   }).catch((err) => {
     error(err, res);
@@ -24,16 +25,16 @@ router.put("/create", (req, res) => {
 router.put("/edit/:id", (req, res) => {
   Memo.find(req.params.id).then((memo) => {
     if(!memo) {
-      res.render("home", {massage: "That memo does not exist"});
+      res.send(404);
       return;
     }
 
     if(memo.parent_id != req.body.id) {
-      res.render("home", {massage: "I can not get consistency"});
+      res.send(400)
       return;
     }
-    
-    if(req.body.name) memo.name = req.body.name;
+
+    if(req.body.rename) memo.name = req.body.rename;
     if(req.body.value) memo.content = req.body.value;
     memo.updated_at = new Date();
 
@@ -48,12 +49,13 @@ router.put("/edit/:id", (req, res) => {
 router.delete("/:id", (req, res) => {
   Memo.find(req.params.id).then((memo) => {
     if(!memo) {
-      res.render("home", {massage: "That memo does not exist"});
+      res.send(404);
       return;
     }
 
+    if(req.body.id == undefined) req.body.id = 1;
     if(memo.parent_id != req.body.id) {
-      res.render("home", {massage: "I can not get cnsistency"});
+      res.send(400);
       return;
     }
 

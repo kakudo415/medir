@@ -29,46 +29,39 @@ function main() {
 }
 function showDirectory() {
   currentDirectory = directory;
-  if (path.length > 0) {
-    recursive(path.length - 1);
+  for(let i = 0; i < path.length; i++) {
+    currentDirectory = currentDirectory.dir;
+    currentDirectory = currentDirectory[path[i]];
   }
-  function recursive(index) {
-    currentDirectory = currentDirectory.dir[path[index]];
-    let tmp = directory.id;
-    for (let i = 0; i < index; i++) {
-      tmp = directory[path[i]];
-    }
-    $.ajax(location.href + "/dir/" + tmp, {
-      type: "post"
-    }).done((data) => {
-      currentDirectory = data;
-    }).fail(() => {
-      console.log("Sorry.Communication with the server failed.");
-    });
-    if ((path.length - 1) > index) {
-      recursive(++index);
-    }
-  }
-  let contentsCount = 0;
-  let source = "";
-  for (let i in currentDirectory) {
-    if (i == "dir") {
-      for (let i in currentDirectory.dir) {
-        console.log(i);
-        source += "<a onclick=changeDirectory(" + "'" + i + "'" + "); class=folder>" + i + "</a>";
-        contentsCount++;
+  $.ajax(location.href + "/dir/" + currentDirectory.id, {
+    type: "post"
+  }).done((data) => {
+    currentDirectory.dir = data.dir;
+    currentDirectory.memo = data.memo;
+    currentDirectory.id = data.id;
+
+    let contentsCount = 0;
+    let source = "";
+    for (let i in currentDirectory) {
+      if (i == "dir") {
+        for (let i in currentDirectory.dir) {
+          source += "<a onclick=changeDirectory(" + "'" + i + "'" + "); class=folder>" + i + "</a>";
+          contentsCount++;
+        }
+      } else if (i == "memo") {
+        for (let i in currentDirectory.memo) {
+          source += "<a onclick=showMemo(" + "'" + i + "'" + "); class=text>" + i + "</a>";
+          contentsCount++;
+        }
       }
-    } else if (i == "memo") {
-      for (let i in currentDirectory.memo) {
-        source += "<a onclick=showMemo(" + "'" + i + "'" + "); class=text>" + i + "</a>";
-        contentsCount++;
-      }
+    };
+    if (contentsCount < 1) {
+      source = "<div id='nocontents'>No Contents</div>";
     }
-  }
-  if (contentsCount < 1) {
-    source = "<div id='nocontents'>No Contents</div>";
-  }
-  itemsHTML.innerHTML = source;
+    itemsHTML.innerHTML = source;
+  }).fail(() => {
+    console.log("Sorry.Communication with the server failed.");
+  });
 }
 function showPath() {
   let pathString = "";
@@ -95,11 +88,7 @@ function renameDirectory() {
     }
   }).done(() => {
     path[path.length - 1] = newName;
-    let tmp = path[path.length - 1];
-    backDirectory();
-    currentDirectory[newName] = currentDirectory[tmp];
-    delete currentDirectory[tmp];
-    changeDirectory(newName);
+    showPath();
   }).fail(() => {
     console.log("Sorry.Communication with the server failed.");
   });
@@ -123,7 +112,7 @@ function showMemo(name) {
   $.ajax(location.href + "/memo/" + currentDirectory.memo[currentMemo], {
     type: "post"
   }).done((data) => {
-    memoContents.innerText = data;
+    memoContents.value = data;
     memoHTML.style.display = "block";
   }).fail(() => {
     console.log("Sorry.Communication with the server failed.");
@@ -142,6 +131,7 @@ function renameMemo() {
       rename: newName
     }
   }).done(() => {
+    currentDirectory.memo[newName] = currentDirectory.memo[currentMemo];
     delete currentDirectory.memo[currentMemo];
     showMemo(newName);
   }).fail(() => {
@@ -174,10 +164,10 @@ function deleteMemo() {
   });
 }
 function changeDirectory(name) {
-  parentID.push(currentDirectory.id);
   path.push(name);
   showDirectory();
   showPath();
+  parentID.push(currentDirectory.id);
 }
 function backDirectory() {
   if (parentID.length > 0) {

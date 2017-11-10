@@ -11,8 +11,8 @@ class Dir {
           reject(err);
           return;
         }
-
-        resolve(new Dir(res[0]));
+        if(res.length == 0) resolve(false);
+        else resolve(new Dir(res[0]));
       });
     });
   }
@@ -56,7 +56,6 @@ class Dir {
     this.name = info.name;
     this.created_at = info.created_at;
     this.updated_at = info.updated_at;
-    console.log(info);
   }
 
   fields() {

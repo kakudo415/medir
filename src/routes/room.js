@@ -29,7 +29,6 @@ router.post("/:name", (req, res) => {
         for(name in memos) {
           sendData.memo[memos[name].name] = memos[name].id;
         }
-        console.log(sendData);
         res.send(sendData);
       }).catch((err) => {
         error(err, res);
