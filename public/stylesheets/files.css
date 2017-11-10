@@ -44,8 +44,23 @@ img{
       #header > a:hover{
         background: #359566;
       }
+      #main .rename{
+        background: #2196F3;
+      }
+      #main .rename:hover{
+        background: #1976D2;
+      }
+      #main .delete{
+        background: #F44336;
+      }
+      #main .delete:hover{
+        background: #D32F2F;
+      }
+      #header > a:not(:first-child){
+        margin-left: 4px;
+      }
       #path{
-        margin: 0 16px;
+        margin: 0 auto 0 16px;
         color: rgba(0, 0, 0, 0.54);
       }
     #items{
@@ -92,28 +107,33 @@ img{
         color: rgba(0, 0, 0, 0.54);
         font-weight: bold;
       }
-        #memo-control{
-          width: 80px;
+        #memo-header > div{
           display: flex;
-          justify-content: space-between;
         }
-          #save{
-            background: #2196F3;
+          #memo-header a{
             border-radius: 5px;
             overflow: hidden;
+          }
+          #memo-header a:not(:first-of-type){
+            margin-left: 4px;
+          }
+          #back{
+            background: #35A566;
+          }
+          #back:hover{
+            background: #359566;
+          }
+          #save{
+            background: #2196F3;
           }
           #save:hover{
             background: #1976D2;
           }
-          #clear{
-            background: #F44336;
-            border-radius: 5px;
-            overflow: hidden;
-          }
-          #clear:hover{
-            background: #D32F2F;
-          }
       #memo-contents{
+        min-height: 540px;
+        width: 100%;
         margin: 8px 0 0;
         color: rgba(0, 0, 0, 0.87);
+        resize: vertical;
+        font-size: 16px;
       }
