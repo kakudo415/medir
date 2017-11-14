@@ -182,7 +182,7 @@ function backDirectory() {
 }
 function addDirectory() {
   let newName = window.prompt("Please enter new directory name");
-  if (newName.match(/^(?!.*(<|>)).*$/ != null){
+  if (newName.match(/^(?!.*(<|>)).*$/ != null)){
     window.alert("Please enter other name");
   } else {
     $.ajax(location.href + "/dir/create", {
@@ -202,7 +202,7 @@ function addDirectory() {
 }
 function addMemo() {
   let newName = window.prompt("Please enter new memo name");
-  if (newName.match(/^(?!.*(<|>)).*$/ != null){
+  if (newName.match(/^(?!.*(<|>)).*$/ != null)){
     window.alert("Please enter other name");
   } else {
     $.ajax(location.href + "/memo/create", {
