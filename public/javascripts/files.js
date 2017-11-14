@@ -134,7 +134,7 @@ function renameMemo() {
     currentDirectory.memo[newName] = currentDirectory.memo[currentMemo];
     delete currentDirectory.memo[currentMemo];
     showMemo(newName);
-    showDirectory();
+		showDirectory();
   }).fail(() => {
     console.log("Sorry.Communication with the server failed.");
   });
