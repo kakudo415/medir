@@ -29,7 +29,7 @@ function main() {
 }
 function showDirectory() {
   currentDirectory = directory;
-  for (let i = 0; i < path.length; i++) {
+  for(let i = 0; i < path.length; i++) {
     currentDirectory = currentDirectory.dir;
     currentDirectory = currentDirectory[path[i]];
   }
@@ -134,7 +134,7 @@ function renameMemo() {
     currentDirectory.memo[newName] = currentDirectory.memo[currentMemo];
     delete currentDirectory.memo[currentMemo];
     showMemo(newName);
-    showDirectory();
+		showDirectory();
   }).fail(() => {
     console.log("Sorry.Communication with the server failed.");
   });
@@ -182,40 +182,32 @@ function backDirectory() {
 }
 function addDirectory() {
   let newName = window.prompt("Please enter new directory name");
-  if (newName.match(/^(?!.*(<|>)).*$/ != null)){
-    window.alert("Please enter other name");
-  } else {
-    $.ajax(location.href + "/dir/create", {
-      type: "put",
-      data: {
-        id: parentID[parentID.length - 1],
-        name: newName
-      }
-    }).done((data) => {
-      currentDirectory.dir[newName] = {};
-      currentDirectory.dir[newName].id = data;
-      showDirectory();
-    }).fail(() => {
-      console.log("Sorry.Communication with the server failed.");
-    });
-  }
+  $.ajax(location.href + "/dir/create", {
+    type: "put",
+    data: {
+      id: parentID[parentID.length - 1],
+      name: newName
+    }
+  }).done((data) => {
+    currentDirectory.dir[newName] = {};
+    currentDirectory.dir[newName].id = data;
+    showDirectory();
+  }).fail(() => {
+    console.log("Sorry.Communication with the server failed.");
+  });
 }
 function addMemo() {
   let newName = window.prompt("Please enter new memo name");
-  if (newName.match(/^(?!.*(<|>)).*$/ != null)){
-    window.alert("Please enter other name");
-  } else {
-    $.ajax(location.href + "/memo/create", {
-      type: "put",
-      data: {
-        id: parentID[parentID.length - 1],
-        name: newName
-      }
-    }).done((data) => {
-      currentDirectory.memo[newName] = data;
-      showDirectory();
-    }).fail(() => {
-      console.log("Sorry.Communication with the server failed.");
-    });
-  }
+  $.ajax(location.href + "/memo/create", {
+    type: "put",
+    data: {
+      id: parentID[parentID.length - 1],
+      name: newName
+    }
+  }).done((data) => {
+    currentDirectory.memo[newName] = data;
+    showDirectory();
+  }).fail(() => {
+    console.log("Sorry.Communication with the server failed.");
+  });
 }
