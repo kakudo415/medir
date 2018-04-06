@@ -1,15 +1,17 @@
 ## 概要
-medirはツリー構造でメモを保持し共有するサービスです  
-memo + directory で medir（中々気に入ってる  
-ユーザー認証機能は実装しない予定（やりたいならprivate機能を実装する形で  
+medirはツリー構造でメモを保持し共有するサービスです
+memo + directory で medir（中々気に入ってる
+ユーザー認証機能は実装しない予定（やりたいならprivate機能を実装する形で
 
 ## 動かし方
 
-1. git clone する
+1. `git clone https://github.com/kakudo415/medir`
 
-2. npm install
+2. `cd medir`
 
-3. migrate.sql があるのでDB生成
+3. `npm install`
+
+3. `npm run migrate` を実行する(DBにパスワードが付いてる場合は `npm run migrate:password` を実行する)
 
 4. node app.js
 
