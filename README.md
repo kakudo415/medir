@@ -1,7 +1,7 @@
 ## 概要
-medirはツリー構造でメモを保持し共有するサービスです  
-memo + directory で medir（中々気に入ってる  
-ユーザー認証機能は実装しない予定（やりたいならprivate機能を実装する形で  
+medirはツリー構造でメモを保持し共有するサービスです
+memo + directory で medir（中々気に入ってる
+ユーザー認証機能は実装しない予定（やりたいならprivate機能を実装する形で
 
 ## 動かし方
 
@@ -12,6 +12,13 @@ memo + directory で medir（中々気に入ってる
 3. migrate.sql があるのでDB生成
 
 4. node app.js
+
+### 環境変数
+
+MEDIR\_DB\_HOST: MySQLのデータベースのホスト名を指します
+MEDIR\_DB\_USER: MySQLのデータベースのユーザー名を指します
+MEDIR\_DB\_PASS: MySQLのデータベースのパスワード名を指します
+MEDIR\_DB\_NAME: MySQLのデータベース名を指します
 
 ## 用語集
 
